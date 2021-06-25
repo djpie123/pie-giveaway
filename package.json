@@ -1,0 +1,30 @@
+{
+  "name": "pie-giveaway",
+  "version": "1.0.0",
+  "description": "An npm package that creates giveaways.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/djpie123/Better-discord-giveaway"
+  },
+  "keywords": [
+    "pie-giveaway",
+    "pie-giveaway"
+  ],
+  "author": "Pie is live",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/djpie123/Better-discord-giveaway/issues"
+  },
+  "homepage": "https://github.com/djpie123/Better-discord-giveaway#readme",
+  "dependencies": {
+    "discord.js": "^12.5.3",
+    "events": "^3.3.0",
+    "mongoose": "^5.12.14",
+    "node-schedule": "^2.0.0",
+    "pretty-ms": "^7.0.1"
+  }
+}
