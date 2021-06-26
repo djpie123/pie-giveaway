@@ -1,9 +1,8 @@
 const mongoose = require('mongoose');
-const Discord = require('discord.js');
 const Giveaway = require('./Giveaway');
 const moment = require('moment');
 const { schedule, getWinner, endGiveaway } = require('./functions');
-const GiveawayModel = require('./GiveawayModel');
+const GiveawayModel = require('../models/GiveawayModel');
 const scheduler = require('node-schedule');
 const { EventEmitter } = require('events');
 const {MessageEmbed} = require("discord.js")
@@ -54,10 +53,12 @@ class GiveawayCreator extends EventEmitter {
         if (!options.prize) throw new Error("You didn't provide a prize.");
         if (!options.winners || isNaN(options.winners)) throw new Error("You didn't provide an amount of winners OR winners is not a number.");
         if (!options.hostedBy) throw new Error("Please provide a user ID for the person who hosted the giveaway.");
-
+        const winmoji = ":trophy:"
+        const winemo = "🎁"
+        const hostemo = ":man_detective: "
         const guild = this.client.guilds.cache.get(options.guildId);
         const channel = guild.channels.cache.get(options.channelId);
-        const giveawayEmbed = new Discord.MessageEmbed()
+        const giveawayEmbed = new MessageEmbed()
         .setAuthor(options.prize)
         .setColor("RANDOM")
         .setDescription(`${winemo} Winners: ${options.winners}
@@ -156,6 +157,9 @@ message.channel.send('What is the prize?');
      */
 
    async endGiveaway(messageId) {
+    const winmoji = ":trophy:"
+    const winemo = "🎁"
+    const hostemo = ":man_detective: "
         let data = await GiveawayModel.findOne({ messageId: messageId });
 
         if (!data) return false;
@@ -229,6 +233,9 @@ const em = ":arrow_upper_right:"
      */
 
     async rerollGiveaway(messageId) {
+        const winmoji = ":trophy:"
+const winemo = "🎁"
+const hostemo = ":man_detective: "
         const giveaway = await GiveawayModel.findOne({ messageId: messageId });
 
         if (!giveaway) return false;
