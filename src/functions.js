@@ -1,7 +1,6 @@
 const scheduler = require('node-schedule');
 const GiveawayModel = require('../models/GiveawayModel');
 const {MessageEmbed} = require('discord.js')
-const { MessageButton, MessageActionRow } = require('discord-buttons');
 function getWinner(users, max) {
     if (users.length < 1) return false;
     if (users.length <= max) return users;
@@ -53,12 +52,8 @@ const hostemo = ":man_detective: "
                         embed.setDescription(`${winmoji} Winner(s): ${finalWinners}`);
                         embed.setFooter(stuff.client.user.username, stuff.client.user.displayAvatarURL({ format: 'png', size: 512 }));
                         await message.edit(embed);
-                        let button = new MessageButton()
-                       .setLabel("Goto giveaway")
-                       .setStyle("url")
-                       .setURL(`${message.url}`)
                         if (!winner) {
-                            message.channel.send(`Nobody reacted to the **${prize}** giveaway. **ID**: \`${messageId}\``, { components: button }) 
+                            message.channel.send(`Nobody reacted to the **${prize}** giveaway. **ID**: \`${messageId}\``) 
                              message.channel.send(new MessageEmbed().setTitle("Click here to go to giveaway").setURL(message.url))
                         }
                         else {
