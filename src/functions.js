@@ -1,6 +1,7 @@
 const scheduler = require('node-schedule');
 const GiveawayModel = require('../models/GiveawayModel');
-const winmoji = ":trophy:"
+const {MessageEmbed} = require('discord.js')
+const { MessageButton, MessageActionRow } = require('discord-buttons');
 function getWinner(users, max) {
     if (users.length < 1) return false;
     if (users.length <= max) return users;
@@ -21,6 +22,9 @@ function getWinner(users, max) {
 }
 
 async function schedule(stuff, giveawayArray) {
+    const winmoji = ":trophy:"
+const winemo = "🎁"
+const hostemo = ":man_detective: "
     for(let i = 0; i < giveawayArray.length; i++) {
         let { messageId, channelId, endsOn, prize, winners } = giveawayArray[i];
 
@@ -49,11 +53,18 @@ async function schedule(stuff, giveawayArray) {
                         embed.setDescription(`${winmoji} Winner(s): ${finalWinners}`);
                         embed.setFooter(stuff.client.user.username, stuff.client.user.displayAvatarURL({ format: 'png', size: 512 }));
                         await message.edit(embed);
+                        let button = new MessageButton()
+                       .setLabel("Goto giveaway")
+                       .setStyle("url")
+                       .setURL(`${message.url}`)
                         if (!winner) {
-                            message.channel.send(`Nobody reacted to the **${prize}** giveaway. **ID**: \`${messageId}\`\n${message.url}`);
+                            message.channel.send(`Nobody reacted to the **${prize}** giveaway. **ID**: \`${messageId}\``, { components: button }) 
+                             message.channel.send(new MessageEmbed().setTitle("Click here to go to giveaway").setURL(message.url))
                         }
                         else {
-                            message.channel.send(`Congratulations ${finalWinners}, you won the **${prize}**!\n**ID**: \`${messageId}\`\n${message.url}`);
+                            message.channel.send(`Congratulations ${finalWinners}, you won the **${prize}**!\n**ID**: \`${messageId}\``) 
+const em = ":arrow_upper_right:"
+                            message.channel.send(new MessageEmbed().setTitle(`Click here to go to giveaway ${em}`).setURL(message.url))
                         }
                         const ended = await endGiveaway(messageId);
                         stuff.emit('giveawayEnd', ended);

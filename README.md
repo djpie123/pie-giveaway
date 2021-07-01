@@ -3,7 +3,8 @@ A package for giveaways
 # Installation
 npm install pie-giveaways
 # Examples
-[![Giveaway](/examples/giveaway.gif)](/examples/giveaway.gif)
+![Example for start command](https://imgur.com/X7inDdl.gif)
+![Example for create command](https://imgur.com/vkYnqO9.gif)
 # Start
 Start by creating a new GiveawayCreator.
 ```js
@@ -15,7 +16,7 @@ const giveaway = gwcreator; // Access the Creator from anywhere.
 ```
 # All Methods
 ##### startGiveaway(options)
-Creates a giveaway. **Example**:
+Starts a giveaway. **Example**:
 ```js
 client.on('message', async message => {
     if (message.content.startsWith('!start)) {
