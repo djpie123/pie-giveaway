@@ -9,7 +9,6 @@ const {MessageEmbed} = require("discord.js")
 const winmoji = ":trophy:"
 const winemo = "🎁"
 const hostemo = ":man_detective: "
-const { MessageButton, MessageActionRow } = require('discord-buttons');
 class GiveawayCreator extends EventEmitter {
     /**
      * 
@@ -40,7 +39,6 @@ class GiveawayCreator extends EventEmitter {
 
             await schedule(this, giveaways);
         });
-const disbut = require('discord-buttons')(this.client);
     }
 
     /**
