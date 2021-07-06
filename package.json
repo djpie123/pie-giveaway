@@ -1,6 +1,6 @@
 {
   "name": "pie-giveaway",
-  "version": "0.0.1",
+  "version": "1.0.7",
   "description": "An npm package that creates giveaways.",
   "main": "index.js",
   "scripts": {
