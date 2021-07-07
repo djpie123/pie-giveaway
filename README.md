@@ -5,11 +5,14 @@ npm install pie-giveaways
 # Examples
 ![Example for start command](https://imgur.com/X7inDdl.gif)
 ![Example for create command](https://imgur.com/vkYnqO9.gif)
+![Example for Drop command](https://i.imgur.com/N5kPXiM.gif)
 # Start
 Start by creating a new GiveawayCreator.
 ```js
 const { Client } = require('discord.js');
 const client = new Client();
+//must add this line or it will throw err and also make sure to add it just after client declaration.
+require('discord-buttons')(client);
 const { GiveawayCreator } = require('pie-giveaways');
 const gwcreator = new GiveawayCreator(client, 'mongodb://...');
 const giveaway = gwcreator; // Access the Creator from anywhere.
@@ -90,6 +93,18 @@ client.on('message', async message => {
         } else {
             message.channel.send(`${list.map(i => `\`${i.messageId}\` - **${i.prize}** | ${prettyMilliseconds(i.timeRemaining)} | Host: **${i.hostedBy}**`).join('\n')}`)
         }
+    }
+});
+```
+##### drop(message, client, options)
+Creates a Drop. **Example**:
+```js
+client.on('message', async message => {
+    if (message.content.startsWith('!create')) {
+     await giveaway.drop(message, client, {
+prize: 'nitro',
+hostID: message.author.id
+}) 
     }
 });
 ```
