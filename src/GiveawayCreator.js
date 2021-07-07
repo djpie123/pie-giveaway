@@ -9,6 +9,7 @@ const {MessageEmbed} = require("discord.js")
 const winmoji = ":trophy:"
 const winemo = "🎁"
 const hostemo = ":man_detective: "
+const { MessageButton, MessageActionRow } = require('discord-buttons');
 class GiveawayCreator extends EventEmitter {
     /**
      * 
@@ -31,7 +32,6 @@ class GiveawayCreator extends EventEmitter {
             useNewUrlParser: true,
             useUnifiedTopology: true
         });
-
         this.client.on('ready', async () => {
             const now = new Date();
 
@@ -150,7 +150,36 @@ message.channel.send('What is the prize?');
             });
     })
 }
+ async drop(message, client, options) {
+let button = new MessageButton()
+  .setStyle('red')
+  .setLabel('Enter') 
+  .setID('drop');
+const DropEmbed = new MessageEmbed()
+                .setTitle(`${options.prize}`)
+                .setDescription(`First to click enter wins ${options.prize}.\n hosted by <@${options.hostID}>`)
+                .setFooter(this.client.user.tag, this.client.user.displayAvatarURL({ size: 512, format: 'png' }))
+                .setColor("RANDOM")
+                .setTimestamp();
+const msg = await message.channel.send(DropEmbed, button)
+try{
+client.on('clickButton', async (button) => {
+if(button.id.startsWith('drop')){
+const Dropembed = new MessageEmbed()
+.setTitle(`🎉 Drop Winner!`)
+.setDescription(`<@${button.clicker.user.id}> won the drop of ${options.prize}. \n Please contact <@${options.hostID}> to claim you prize`)
+.setFooter(this.client.user.tag, this.client.user.displayAvatarURL({ size: 512, format: 'png' }))
+                .setColor("RANDOM")
+                .setTimestamp();
+msg.edit(Dropembed, null)
+await button.reply.send(`congratulations <@${button.clicker.user.id}> you won the drop`)
+}
+});
+}catch(e){
 
+}
+
+ }
     /**
      * 
      * @param {string} messageId - A discord message ID.
