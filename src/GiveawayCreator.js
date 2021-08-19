@@ -20,8 +20,8 @@ class GiveawayCreator extends EventEmitter {
     constructor(client, url = '', emoji = '🎉', color = 0x7289da) {
         super();
 
-        if (!client) throw new Error("A client wasn't provided.");
-        if (!url) throw new Error("A connection string wasn't provided.");
+        if (!client) throw new TypeError("A client wasn't provided.");
+        if (!url) throw new TypeError("A connection string wasn't provided.");
 
         this.client = client;
         this.mongoUrl = url;
@@ -47,12 +47,12 @@ class GiveawayCreator extends EventEmitter {
      */
 
     async startGiveaway(options) {
-        if (!options.duration) throw new Error("You didn't provide a duration.");
-        if (!options.channelId) throw new Error("You didn't provide a channel ID.");
-        if (!options.guildId) throw new Error("You didn't provide a guild ID.");
-        if (!options.prize) throw new Error("You didn't provide a prize.");
-        if (!options.winners || isNaN(options.winners)) throw new Error("You didn't provide an amount of winners OR winners is not a number.");
-        if (!options.hostedBy) throw new Error("Please provide a user ID for the person who hosted the giveaway.");
+        if (!options.duration) throw new TypeError("You didn't provide a duration.");
+        if (!options.channelId) throw new TypeError("You didn't provide a channel ID.");
+        if (!options.guildId) throw new TypeError("You didn't provide a guild ID.");
+        if (!options.prize) throw new TypeError("You didn't provide a prize.");
+        if (!options.winners || isNaN(options.winners)) throw new TypeError("You didn't provide an amount of winners OR winners is not a number.");
+        if (!options.hostedBy) throw new TypeError("Please provide a user ID for the person who hosted the giveaway.");
         const winmoji = ":trophy:"
         const winemo = "🎁"
         const hostemo = ":man_detective: "
@@ -315,7 +315,7 @@ const em = ":arrow_upper_right:"
      */
 
     async listGiveaways(guildId) {
-        if (!guildId) throw new Error("Please provide a guild ID.");
+        if (!guildId) throw new TypeError("Please provide a guild ID.");
 
         const Giveaways = await GiveawayModel.find({ guildId: guildId, hasEnded: 'False' });
 
